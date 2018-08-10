@@ -1,5 +1,5 @@
-import { authRouter } from './auth/auth.router'
-import { userRouter } from './user/user.router'
+import { authRouter } from '@/auth/auth.router'
+import { userRouter } from '@/user/user.router'
 import { ExpressRequest, ExpressResponse, ExpressNextFunction } from 'types/express'
 import express = require('express')
 import config from 'config'

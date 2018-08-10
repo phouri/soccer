@@ -4,7 +4,14 @@ import { NextFunction } from 'connect'
 import { setJwt } from '@/middlewares/jwtMiddleware'
 
 export async function login(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
+  if (req.user) {
+    //if already logged in, just continue
+    return res.send({
+      success: true
+    })
+  }
   const { email, password } = req.body
+  
   if (!email || !password) {
     return res.send({
       success: false,
@@ -21,7 +28,7 @@ export async function login(req: ExpressRequest, res: ExpressResponse, next: Exp
   const valid = await user.validatePassword(password)
   if (valid) {
     await setJwt(req, res, user)
-    res.send({ user })
+    res.send({ success: true, user })
   } else {
     res.send({
       success: false

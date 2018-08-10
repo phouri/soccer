@@ -22,6 +22,7 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
+    required: true,
   },
   firstName: {
     type: String,
@@ -44,11 +45,12 @@ UserSchema.set('toJson', {getters: true, virtuals: true, transform: (doc: UserMo
   return ret
 }})
 
-UserSchema.method('validatePassword', async (password: string): Promise<boolean> => {
+UserSchema.method('validatePassword', async function validatePassword(password: string): Promise<boolean> {
+  console.log(password, this.password)
   return await bcrypt.compare(password, this.password)
 })
 
-UserSchema.method('setPassword', async (password: string): Promise<void> => {
+UserSchema.method('setPassword', async function setPassword(password: string): Promise<void> {
   this.password = await bcrypt.hash(password, 5)
 })
 

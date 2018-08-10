@@ -4,24 +4,39 @@
       <v-text-field 
         label="Email"
         type="email" 
+        v-model="email"
       />
       <v-text-field 
         label="Password" 
         type="password" 
+        v-model="password"
       />
+      <v-btn @click="doLogin">
+        Login
+      </v-btn>
     </v-card>
   </section>
 </template>
 
 <script>
+import { loginByEmailPassword } from '@/api/authApi'
+
 export default {
   components: {},
   mounted() {},
   data() {
-    return {}
+    return {
+      email: '',
+      password: '',
+    }
   },
   computed: {},
-  methods: {},
+  methods: {
+    async doLogin() {
+      const success = await loginByEmailPassword(this.email, this.password)
+      alert(success)
+    },
+  },
 }
 </script>
 <style scoped lang="stylus">

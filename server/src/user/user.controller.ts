@@ -1,4 +1,4 @@
-import { ExpressRequest, ExpressResponse, ExpressNextFunction } from '^/types/express.d'
+import { ExpressRequest, ExpressResponse, ExpressNextFunction } from 'types/express'
 
 export async function getSelfUser(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
   if (req.user) {
