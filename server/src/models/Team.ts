@@ -4,10 +4,10 @@ interface Team {
   name: string,
   participants: [{
     score: number,
-    user_id: Schema.Types.ObjectId
+    user: Schema.Types.ObjectId
     name: string
   }]
-  owner_id: Schema.Types.ObjectId
+  owner: Schema.Types.ObjectId
 }
 export interface TeamModel extends Team, Document {
   validatePassword(password: string): boolean
@@ -19,9 +19,11 @@ const TeamSchema = new Schema({
     type: String,
     required: true,
   },
-  owner_id: {
+  owner: {
+    required: true,
     type: Schema.Types.ObjectId,
     ref: 'User',
+    index: true,
   },
   participants: [{
     score: {
@@ -30,7 +32,7 @@ const TeamSchema = new Schema({
       min: 1,
       max: 10
     },
-    user_id: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },
@@ -48,4 +50,4 @@ class TeamClass {
 TeamSchema.loadClass(TeamClass)
 
 
-export const Team: Model<TeamModel> = model<TeamModel>("User", TeamSchema)
+export const Team: Model<TeamModel> = model<TeamModel>("Team", TeamSchema)

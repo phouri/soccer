@@ -1,5 +1,7 @@
 import { authRouter } from '@/auth/auth.router'
 import { userRouter } from '@/user/user.router'
+import { teamRouter } from '@/team/team.router'
+
 import { ExpressRequest, ExpressResponse, ExpressNextFunction } from 'types/express'
 import express = require('express')
 import config from 'config'
@@ -30,6 +32,7 @@ export class App {
   private addRoutes() {
     this.apiRouter = express.Router()
     this.apiRouter.use('/users', userRouter)
+    this.apiRouter.use('/teams', teamRouter)
     this.apiRouter.use('/auth', authRouter)
     this.app.use('/api/v1', this.apiRouter)
   }
