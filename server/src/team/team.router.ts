@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import forceLogin from '@/middlewares/forceLogin';
-import { createTeam, addParticipant, getUserTeams } from './team.controller'
+import { createTeam, addParticipant, getUserTeams, getTeam, removeParticipant } from './team.controller'
 
 
 export const teamRouter = Router()
@@ -9,5 +9,7 @@ export const teamRouter = Router()
 teamRouter.use(forceLogin)
 
 teamRouter.put('', createTeam)
-teamRouter.post('/:teamId/add_participant', addParticipant)
+teamRouter.put('/:teamId/participants', addParticipant)
+teamRouter.delete('/:teamId/participants', removeParticipant)
 teamRouter.get('', getUserTeams)
+teamRouter.get('/:teamId', getTeam)

@@ -1,6 +1,16 @@
 <template>
   <section class="home-component">
-    {{ teams }}
+    <div 
+      class="team" 
+      v-for="team in teams" 
+      :key="team._id">
+      <span>
+        {{ team.name }} - {{ team.participants.length }} participants
+      </span>
+      <router-link :to="{name: 'Team', params: {teamId: team._id}}">
+        <v-btn>Edit</v-btn>
+      </router-link>
+    </div>
     <CreateTeam @onCreate="refresh" />
   </section>
 </template>

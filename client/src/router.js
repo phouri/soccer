@@ -5,6 +5,7 @@ const LoginForm = () => import('./views/login/LoginForm.vue')
 const RegisterForm = () => import('./views/login/RegisterForm.vue')
 
 const Home = () => import('./views/Home.vue')
+const Team = () => import('./views/Team.vue')
 
 Vue.use(Router)
 
@@ -29,11 +30,18 @@ export default new Router({
       ],
     },
     {
+      name: 'Team',
+      path: '/team/:teamId',
+      props: true,
+      component: Team,
+    },
+    {
       path: '/',
       component: Home,
       meta: {
         requireAuth: true,
       },
+      children: [],
     },
   ],
 })
