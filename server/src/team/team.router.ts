@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import forceLogin from '@/middlewares/forceLogin';
-import { createTeam, addParticipant, getUserTeams, getTeam, removeParticipant } from './team.controller'
+import { createTeam, addParticipant, getUserTeams, getTeam, removeParticipant } from '@/team/team.controller'
 
 
 export const teamRouter = Router()

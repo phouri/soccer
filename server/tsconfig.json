@@ -10,10 +10,13 @@
     "sourceMap": true,
     "paths": {
       "@/*": ["src/*"],
-      "^/*": ["*"]
+      "^/*": ["*"],
     },
+    "typeRoots": [
+      "node_modules/@types",
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*", "config/*.ts"]
+  "include": ["./src/**/*", "./config/*.ts", "types/**/*"]
 }

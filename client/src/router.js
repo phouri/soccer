@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
+
 const LoginContainer = () => import('./views/login/LoginContainer.vue')
 const LoginForm = () => import('./views/login/LoginForm.vue')
 const RegisterForm = () => import('./views/login/RegisterForm.vue')
@@ -9,13 +11,19 @@ const Team = () => import('./views/Team.vue')
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/login',
       component: LoginContainer,
+      beforeEnter: (to, from, next) => {
+        if (store.state.user) {
+          next({name: 'Home'})
+        } else {
+          next()
+        }
+      },
       children: [
         {
           path: '',
@@ -37,6 +45,7 @@ export default new Router({
     },
     {
       path: '/',
+      name: 'Home',
       component: Home,
       meta: {
         requireAuth: true,
@@ -45,3 +54,15 @@ export default new Router({
     },
   ],
 })
+
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth && !store.state.user) {
+    next({name: 'Login'})
+  } else {
+    next()
+  }
+})
+
+
+export default router

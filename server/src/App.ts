@@ -1,7 +1,6 @@
 import { authRouter } from '@/auth/auth.router'
 import { userRouter } from '@/user/user.router'
 import { teamRouter } from '@/team/team.router'
-
 import { ExpressRequest, ExpressResponse, ExpressNextFunction } from 'types/express'
 import express = require('express')
 import config from 'config'
@@ -10,13 +9,15 @@ import * as bodyParser from 'body-parser'
 import * as morgan from 'morgan'
 import * as cookieParser from 'cookie-parser'
 import * as csrf from 'csurf'
-import jwtMiddleware from '@/middlewares/jwtMiddleware';
+import jwtMiddleware from '@/middlewares/jwtMiddleware'
+import { readFileSync } from 'fs'
+import * as path from 'path'
 
 export class App {
   app: express.Application
   mongoose: mongoose.Mongoose
   apiRouter: express.Router
-
+  indexFile: string
   constructor() {
     this.app = express()
     this.addMiddlewares()
@@ -30,11 +31,24 @@ export class App {
   private addCsrfFreeRoutes(): void {}
 
   private addRoutes() {
+    const root = path.resolve(__dirname, '../clientDist')
     this.apiRouter = express.Router()
     this.apiRouter.use('/users', userRouter)
     this.apiRouter.use('/teams', teamRouter)
     this.apiRouter.use('/auth', authRouter)
     this.app.use('/api/v1', this.apiRouter)
+    this.app.use('/static', express.static(root))
+    this.app.use((req: ExpressRequest, res: ExpressResponse, next) => {
+      try {
+        if (!this.indexFile) {
+          console.log('get index')
+          this.indexFile = readFileSync(`${root}/index.html`, 'utf8')
+        }
+        res.send(this.indexFile)
+      } catch (e) {
+        next()
+      }
+    })
   }
 
   private addCsrfMiddleware() {

@@ -1,0 +1,19 @@
+{
+  "name": "soccer",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "deploy": "cd client && npm run build && cd .. && cd server && now --public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phouri/soccer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phouri/soccer/issues"
+  },
+  "homepage": "https://github.com/phouri/soccer#readme"
+}

@@ -14,3 +14,14 @@ export interface ExpressRequest extends Request {
 export interface ExpressResponse extends Response {}
 
 export interface ExpressNextFunction extends NextFunction {}
+
+
+declare global {
+  namespace Express {
+    interface Request {
+      jwt: JWTToken,
+      user?: UserModel,
+      authenticated: boolean
+    }
+  }
+}

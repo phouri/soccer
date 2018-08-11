@@ -46,7 +46,7 @@ export default {
     async removeParticipant(player) {
       await removeParticipant(this.team._id, player)
       this.team.participants = this.team.participants.filter(p => p !== player)
-    }
+    },
   },
 }
 </script>

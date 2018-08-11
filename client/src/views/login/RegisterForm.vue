@@ -1,6 +1,10 @@
 <template>
   <section class="register-form">
     <v-card class="register-card">
+      <v-card-title>
+        Register
+      </v-card-title>
+      <v-card-text>
       <v-text-field 
         label="Email"
         type="email" 
@@ -24,9 +28,17 @@
         type="password" 
         v-model="user.repeat"
       />
-      <v-btn @click="register">
-        Register
-      </v-btn>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="register">
+          Register
+        </v-btn>
+      </v-card-actions>
+      <v-card-text>
+        Already registered? <router-link :to="{name: 'Login'}">
+          <v-btn small flat>Login</v-btn>
+        </router-link>
+      </v-card-text>
     </v-card>
   </section>
 </template>
@@ -57,7 +69,8 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-.login-form {
-  border: 1px solid red;
+.register-card {
+  min-width: 400px;
+  padding: 30px;
 }
 </style>

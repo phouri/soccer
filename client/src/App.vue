@@ -1,22 +1,18 @@
 <template>
-  <v-app>
+  <v-app v-if="ready">
     <router-view />
   </v-app>
 </template>
 
 <script>
-import { getSelfUser } from '@/api/usersApi'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'App',
-  async created() {
-    this.user = await getSelfUser()
-  },
   data() {
-    return {
-      ready: false,
-      user: null,
-    }
+    return {}
+  },
+  computed: {
+    ...mapState(['ready']),
   },
 }
 </script>

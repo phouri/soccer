@@ -1,5 +1,5 @@
 import { ExpressRequest, ExpressResponse, ExpressNextFunction } from 'types/express'
-import { Team } from '../models/Team'
+import { Team } from '@/models/Team'
 
 export async function addParticipant(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) {
   const { participant } = req.body
